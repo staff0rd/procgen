@@ -1,30 +1,24 @@
-import { useState } from "react";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { Canvas } from "@react-three/fiber";
+
+function Cube() {
+	return (
+		<mesh>
+			<boxGeometry args={[1, 1, 1]} />
+			<meshStandardMaterial color="orange" />
+		</mesh>
+	);
+}
 
 function App() {
-	const [count, setCount] = useState(0);
-
 	return (
-		<>
-			<div>
-				<a href="https://vite.dev" target="_blank" rel="noopener">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-			</div>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<button type="button" onClick={() => setCount((count) => count + 1)}>
-					count is {count}
-				</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">
-				Click on the Vite and React logos to learn more
-			</p>
-		</>
+		<Canvas
+			style={{ width: "100vw", height: "100vh" }}
+			camera={{ position: [3, 3, 3], fov: 50 }}
+		>
+			<ambientLight intensity={0.5} />
+			<directionalLight position={[5, 5, 5]} intensity={1} />
+			<Cube />
+		</Canvas>
 	);
 }
 
