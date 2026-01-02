@@ -10,7 +10,7 @@
 	},
 	"overrides": [
 		{
-			"includes": ["src/main.tsx", "vite.config.ts"],
+			"includes": ["src/main.tsx", "vite.config.ts", "index.html"],
 			"linter": {
 				"rules": {
 					"style": {
