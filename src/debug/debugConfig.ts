@@ -1,20 +1,23 @@
 import oc from "open-color";
 import { useSyncExternalStore } from "react";
 
-export type OcColorName =
-	| "gray"
-	| "red"
-	| "pink"
-	| "grape"
-	| "violet"
-	| "indigo"
-	| "blue"
-	| "cyan"
-	| "teal"
-	| "green"
-	| "lime"
-	| "yellow"
-	| "orange";
+const COLOR_NAMES = [
+	"gray",
+	"red",
+	"pink",
+	"grape",
+	"violet",
+	"indigo",
+	"blue",
+	"cyan",
+	"teal",
+	"green",
+	"lime",
+	"yellow",
+	"orange",
+] as const;
+
+export type OcColorName = (typeof COLOR_NAMES)[number];
 
 export type OcShade = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
@@ -97,4 +100,28 @@ export const debugConfig = {
 
 export function useDebugConfig(): DebugConfig {
 	return useSyncExternalStore(debugConfig.subscribe, debugConfig.get);
+}
+
+// biome-ignore lint/suspicious/noExplicitAny: tweakpane types incomplete
+type FolderApi = any;
+
+export function addColorBindings(
+	folder: FolderApi,
+	params: { colorName: string; colorShade: number },
+	onChange: () => void,
+) {
+	folder
+		.addBinding(params, "colorName", {
+			label: "Color",
+			options: Object.fromEntries(COLOR_NAMES.map((n) => [n, n])),
+		})
+		.on("change", onChange);
+	folder
+		.addBinding(params, "colorShade", {
+			label: "Shade",
+			min: 0,
+			max: 9,
+			step: 1,
+		})
+		.on("change", onChange);
 }

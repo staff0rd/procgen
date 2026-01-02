@@ -42,6 +42,7 @@ export function Water() {
 				emissiveIntensity={water.brightness - 1}
 				transparent
 				opacity={0.8}
+				depthWrite={false}
 				side={THREE.DoubleSide}
 				flatShading
 			/>
