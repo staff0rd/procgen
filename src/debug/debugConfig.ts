@@ -54,6 +54,10 @@ export type DebugConfig = {
 		maxScale: number;
 		color: OcColor;
 	};
+	creatures: {
+		starfishCount: number;
+		starfishColor: OcColor;
+	};
 	world: {
 		seed: number;
 		backgroundColor: OcColor;
@@ -83,6 +87,10 @@ const defaultConfig: DebugConfig = {
 		minScale: 0.08,
 		maxScale: 0.25,
 		color: { name: "gray", shade: 6 },
+	},
+	creatures: {
+		starfishCount: 5,
+		starfishColor: { name: "pink", shade: 5 },
 	},
 	world: {
 		seed: 42,
@@ -173,6 +181,19 @@ export const debugConfig = {
 
 	setRocksColor(color: OcColor) {
 		config = { ...config, rocks: { ...config.rocks, color } };
+		emitChange();
+	},
+
+	setStarfishCount(starfishCount: number) {
+		config = { ...config, creatures: { ...config.creatures, starfishCount } };
+		emitChange();
+	},
+
+	setStarfishColor(color: OcColor) {
+		config = {
+			...config,
+			creatures: { ...config.creatures, starfishColor: color },
+		};
 		emitChange();
 	},
 
