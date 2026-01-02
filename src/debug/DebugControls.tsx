@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { BubblesDebug } from "./BubblesDebug";
 import { CreaturesDebug } from "./CreaturesDebug";
 import { DebugPane } from "./DebugPane";
 import { RocksDebug } from "./RocksDebug";
@@ -20,6 +21,7 @@ export function DebugControls() {
 		const seaweed = SeaweedDebug(pane);
 		const rocks = RocksDebug(pane);
 		const creatures = CreaturesDebug(pane);
+		const bubbles = BubblesDebug(pane);
 		const world = WorldDebug(pane);
 
 		// Enable persistence and restore
@@ -30,6 +32,7 @@ export function DebugControls() {
 			seaweed.onRestore();
 			rocks.onRestore();
 			creatures.onRestore();
+			bubbles.onRestore();
 			world.onRestore();
 		});
 		pane.restoreState();

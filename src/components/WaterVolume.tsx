@@ -103,6 +103,7 @@ export function WaterVolume() {
 				color={adjustedColor}
 				transparent
 				opacity={0.6}
+				depthWrite={false}
 				side={THREE.DoubleSide}
 				flatShading
 			/>

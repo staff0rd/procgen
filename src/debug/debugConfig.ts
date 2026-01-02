@@ -58,6 +58,15 @@ export type DebugConfig = {
 		starfishCount: number;
 		starfishColor: OcColor;
 	};
+	bubbles: {
+		count: number;
+		minSize: number;
+		maxSize: number;
+		minSpeed: number;
+		maxSpeed: number;
+		opacity: number;
+		color: OcColor;
+	};
 	world: {
 		seed: number;
 		backgroundColor: OcColor;
@@ -91,6 +100,15 @@ const defaultConfig: DebugConfig = {
 	creatures: {
 		starfishCount: 5,
 		starfishColor: { name: "pink", shade: 5 },
+	},
+	bubbles: {
+		count: 30,
+		minSize: 0.01,
+		maxSize: 0.03,
+		minSpeed: 0.05,
+		maxSpeed: 0.15,
+		opacity: 0.8,
+		color: { name: "gray", shade: 0 },
 	},
 	world: {
 		seed: 42,
@@ -194,6 +212,41 @@ export const debugConfig = {
 			...config,
 			creatures: { ...config.creatures, starfishColor: color },
 		};
+		emitChange();
+	},
+
+	setBubblesCount(count: number) {
+		config = { ...config, bubbles: { ...config.bubbles, count } };
+		emitChange();
+	},
+
+	setBubblesMinSize(minSize: number) {
+		config = { ...config, bubbles: { ...config.bubbles, minSize } };
+		emitChange();
+	},
+
+	setBubblesMaxSize(maxSize: number) {
+		config = { ...config, bubbles: { ...config.bubbles, maxSize } };
+		emitChange();
+	},
+
+	setBubblesMinSpeed(minSpeed: number) {
+		config = { ...config, bubbles: { ...config.bubbles, minSpeed } };
+		emitChange();
+	},
+
+	setBubblesMaxSpeed(maxSpeed: number) {
+		config = { ...config, bubbles: { ...config.bubbles, maxSpeed } };
+		emitChange();
+	},
+
+	setBubblesOpacity(opacity: number) {
+		config = { ...config, bubbles: { ...config.bubbles, opacity } };
+		emitChange();
+	},
+
+	setBubblesColor(color: OcColor) {
+		config = { ...config, bubbles: { ...config.bubbles, color } };
 		emitChange();
 	},
 

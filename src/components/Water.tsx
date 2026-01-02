@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { ocToHex, useDebugConfig } from "../debug/debugConfig";
 import { ocean } from "./ocean";
 
-const { SEGMENTS, SIZE, WATER_MESH_Y } = ocean;
+const { SEGMENTS, SIZE, WATER_MESH_Y, getRippleDisplacement } = ocean;
 
 export function Water() {
 	const meshRef = useRef<THREE.Mesh>(null);
@@ -26,7 +26,8 @@ export function Water() {
 			const z = positions.getZ(i);
 			const waveHeight =
 				Math.sin(x * 2 + time) * 0.15 + Math.sin(z * 1.5 + time * 0.8) * 0.12;
-			positions.setY(i, waveHeight);
+			const ripple = getRippleDisplacement(x, z, time);
+			positions.setY(i, waveHeight + ripple);
 		}
 		positions.needsUpdate = true;
 		meshRef.current.geometry.computeVertexNormals();
