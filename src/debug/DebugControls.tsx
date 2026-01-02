@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { DebugPane } from "./DebugPane";
 import { SandDebug } from "./SandDebug";
+import { SeaweedDebug } from "./SeaweedDebug";
 import { WaterDebug } from "./WaterDebug";
 import { WorldDebug } from "./WorldDebug";
 
@@ -14,6 +15,7 @@ export function DebugControls() {
 		// Add panes
 		const water = WaterDebug(pane);
 		const sand = SandDebug(pane);
+		const seaweed = SeaweedDebug(pane);
 		const world = WorldDebug(pane);
 
 		// Enable persistence and restore
@@ -21,6 +23,7 @@ export function DebugControls() {
 		pane.onRestore(() => {
 			water.onRestore();
 			sand.onRestore();
+			seaweed.onRestore();
 			world.onRestore();
 		});
 		pane.restoreState();

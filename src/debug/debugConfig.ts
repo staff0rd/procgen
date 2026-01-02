@@ -42,6 +42,12 @@ export type DebugConfig = {
 	sand: {
 		color: OcColor;
 	};
+	seaweed: {
+		count: number;
+		minHeight: number;
+		maxHeight: number;
+		color: OcColor;
+	};
 	world: {
 		seed: number;
 		backgroundColor: OcColor;
@@ -59,6 +65,12 @@ const defaultConfig: DebugConfig = {
 	},
 	sand: {
 		color: { name: "yellow", shade: 2 },
+	},
+	seaweed: {
+		count: 50,
+		minHeight: 0.3,
+		maxHeight: 1.2,
+		color: { name: "green", shade: 9 },
 	},
 	world: {
 		seed: 42,
@@ -109,6 +121,26 @@ export const debugConfig = {
 
 	setSandColor(color: OcColor) {
 		config = { ...config, sand: { ...config.sand, color } };
+		emitChange();
+	},
+
+	setSeaweedCount(count: number) {
+		config = { ...config, seaweed: { ...config.seaweed, count } };
+		emitChange();
+	},
+
+	setSeaweedMinHeight(minHeight: number) {
+		config = { ...config, seaweed: { ...config.seaweed, minHeight } };
+		emitChange();
+	},
+
+	setSeaweedMaxHeight(maxHeight: number) {
+		config = { ...config, seaweed: { ...config.seaweed, maxHeight } };
+		emitChange();
+	},
+
+	setSeaweedColor(color: OcColor) {
+		config = { ...config, seaweed: { ...config.seaweed, color } };
 		emitChange();
 	},
 
