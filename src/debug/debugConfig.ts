@@ -35,11 +35,16 @@ export type DebugConfig = {
 		color: OcColor;
 		brightness: number;
 	};
+	waterVolume: {
+		color: OcColor;
+		brightness: number;
+	};
 	sand: {
 		color: OcColor;
 	};
 	world: {
 		seed: number;
+		backgroundColor: OcColor;
 	};
 };
 
@@ -48,11 +53,16 @@ const defaultConfig: DebugConfig = {
 		color: { name: "blue", shade: 7 },
 		brightness: 1.0,
 	},
+	waterVolume: {
+		color: { name: "blue", shade: 2 },
+		brightness: 0.4,
+	},
 	sand: {
 		color: { name: "yellow", shade: 2 },
 	},
 	world: {
 		seed: 42,
+		backgroundColor: { name: "gray", shade: 9 },
 	},
 };
 
@@ -87,6 +97,16 @@ export const debugConfig = {
 		emitChange();
 	},
 
+	setWaterVolumeColor(color: OcColor) {
+		config = { ...config, waterVolume: { ...config.waterVolume, color } };
+		emitChange();
+	},
+
+	setWaterVolumeBrightness(brightness: number) {
+		config = { ...config, waterVolume: { ...config.waterVolume, brightness } };
+		emitChange();
+	},
+
 	setSandColor(color: OcColor) {
 		config = { ...config, sand: { ...config.sand, color } };
 		emitChange();
@@ -94,6 +114,11 @@ export const debugConfig = {
 
 	setSeed(seed: number) {
 		config = { ...config, world: { ...config.world, seed } };
+		emitChange();
+	},
+
+	setBackgroundColor(color: OcColor) {
+		config = { ...config, world: { ...config.world, backgroundColor: color } };
 		emitChange();
 	},
 };

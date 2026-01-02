@@ -15,7 +15,7 @@ const {
 
 export function WaterVolume() {
 	const meshRef = useRef<THREE.Mesh>(null);
-	const { water, world } = useDebugConfig();
+	const { waterVolume, world } = useDebugConfig();
 
 	const { geometry, topVertexIndices } = useMemo(() => {
 		const noise2D = createSeededNoise2D(world.seed);
@@ -90,12 +90,17 @@ export function WaterVolume() {
 		meshRef.current.geometry.computeVertexNormals();
 	});
 
-	const colorHex = ocToHex(water.color);
+	const colorHex = ocToHex(waterVolume.color);
+	const adjustedColor = useMemo(() => {
+		const color = new THREE.Color(colorHex);
+		color.multiplyScalar(waterVolume.brightness);
+		return color;
+	}, [colorHex, waterVolume.brightness]);
 
 	return (
 		<mesh ref={meshRef} geometry={geometry}>
 			<meshStandardMaterial
-				color={colorHex}
+				color={adjustedColor}
 				transparent
 				opacity={0.6}
 				side={THREE.DoubleSide}
