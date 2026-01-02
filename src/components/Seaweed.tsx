@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { ocToHex, useDebugConfig } from "../debug/debugConfig";
 import { ocean } from "./ocean";
 
-const { SIZE, SAND_MESH_Y, createSeededNoise2D } = ocean;
+const { SIZE, SAND_MESH_Y, createSeededRandom, createSeededNoise2D } = ocean;
 
 const CONTROL_POINTS = 12;
 const TUBE_SEGMENTS = 32;
@@ -21,16 +21,6 @@ type SeaweedInstance = {
 	phaseX: number;
 	phaseZ: number;
 };
-
-function createSeededRandom(seed: number) {
-	return () => {
-		seed |= 0;
-		seed = (seed + 1831565813) | 0;
-		let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-		t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-		return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-	};
-}
 
 // Create a tapered leaf shape geometry with segments for animation
 function createLeafGeometry(): THREE.BufferGeometry {

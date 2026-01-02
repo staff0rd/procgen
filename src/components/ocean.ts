@@ -33,6 +33,7 @@ export const ocean = {
 	SEGMENTS,
 	SAND_MESH_Y,
 	WATER_MESH_Y,
+	createSeededRandom,
 	createSeededNoise2D,
 	getWaveHeight,
 } as const;

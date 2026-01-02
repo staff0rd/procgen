@@ -48,6 +48,12 @@ export type DebugConfig = {
 		maxHeight: number;
 		color: OcColor;
 	};
+	rocks: {
+		count: number;
+		minScale: number;
+		maxScale: number;
+		color: OcColor;
+	};
 	world: {
 		seed: number;
 		backgroundColor: OcColor;
@@ -71,6 +77,12 @@ const defaultConfig: DebugConfig = {
 		minHeight: 0.3,
 		maxHeight: 1.2,
 		color: { name: "green", shade: 9 },
+	},
+	rocks: {
+		count: 15,
+		minScale: 0.08,
+		maxScale: 0.25,
+		color: { name: "gray", shade: 6 },
 	},
 	world: {
 		seed: 42,
@@ -141,6 +153,26 @@ export const debugConfig = {
 
 	setSeaweedColor(color: OcColor) {
 		config = { ...config, seaweed: { ...config.seaweed, color } };
+		emitChange();
+	},
+
+	setRocksCount(count: number) {
+		config = { ...config, rocks: { ...config.rocks, count } };
+		emitChange();
+	},
+
+	setRocksMinScale(minScale: number) {
+		config = { ...config, rocks: { ...config.rocks, minScale } };
+		emitChange();
+	},
+
+	setRocksMaxScale(maxScale: number) {
+		config = { ...config, rocks: { ...config.rocks, maxScale } };
+		emitChange();
+	},
+
+	setRocksColor(color: OcColor) {
+		config = { ...config, rocks: { ...config.rocks, color } };
 		emitChange();
 	},
 

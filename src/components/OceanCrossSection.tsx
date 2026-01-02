@@ -1,4 +1,5 @@
 import { Caustics } from "./Caustics";
+import { Rocks } from "./Rocks";
 import { Sand } from "./Sand";
 import { Seaweed } from "./Seaweed";
 import { Water } from "./Water";
@@ -8,6 +9,7 @@ export function OceanCrossSection() {
 	return (
 		<group>
 			<Sand />
+			<Rocks />
 			<Seaweed />
 			<WaterVolume />
 			{/* Caustics positioned just above sand */}
