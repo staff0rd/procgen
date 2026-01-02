@@ -107,7 +107,7 @@ const defaultConfig: DebugConfig = {
 		maxSize: 0.03,
 		minSpeed: 0.05,
 		maxSpeed: 0.15,
-		opacity: 0.8,
+		opacity: 0.1,
 		color: { name: "gray", shade: 0 },
 	},
 	world: {
