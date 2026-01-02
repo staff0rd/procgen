@@ -1,0 +1,35 @@
+{
+	"name": "procgen",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build",
+		"preview": "vite preview",
+		"verify:knip": "knip --no-progress",
+		"verify:lint": "biome check --write .",
+		"verify:duplicate-code": "jscpd --format 'typescript,tsx' --exitCode 1 --ignore '**/*.test.*' -r consoleFull src",
+		"verify:build": "tsc -b && vite build --logLevel error",
+		"verify:hardcoded-colors": "assist verify hardcoded-colors"
+	},
+	"dependencies": {
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.3.10",
+		"@types/node": "^24.10.1",
+		"@types/react": "^19.2.5",
+		"@types/react-dom": "^19.2.3",
+		"@vitejs/plugin-react": "^5.1.1",
+		"jscpd": "^4.0.5",
+		"knip": "^5.78.0",
+		"open-color": "^1.9.1",
+		"typescript": "~5.9.3",
+		"vite": "npm:rolldown-vite@7.2.5"
+	},
+	"overrides": {
+		"vite": "npm:rolldown-vite@7.2.5"
+	}
+}
