@@ -1,13 +1,14 @@
 import { useFrame } from "@react-three/fiber";
-import oc from "open-color";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
+import { ocToHex, useDebugConfig } from "../debug/debugConfig";
 import { ocean } from "./ocean";
 
 const { SEGMENTS, SIZE, WATER_MESH_Y } = ocean;
 
 export function Water() {
 	const meshRef = useRef<THREE.Mesh>(null);
+	const { water } = useDebugConfig();
 
 	const geometry = useMemo(() => {
 		const geo = new THREE.PlaneGeometry(SIZE, SIZE, SEGMENTS, SEGMENTS);
@@ -31,10 +32,14 @@ export function Water() {
 		meshRef.current.geometry.computeVertexNormals();
 	});
 
+	const colorHex = ocToHex(water.color);
+
 	return (
 		<mesh ref={meshRef} geometry={geometry} position={[0, WATER_MESH_Y, 0]}>
 			<meshStandardMaterial
-				color={oc.blue[7]}
+				color={colorHex}
+				emissive={colorHex}
+				emissiveIntensity={water.brightness - 1}
 				transparent
 				opacity={0.8}
 				side={THREE.DoubleSide}

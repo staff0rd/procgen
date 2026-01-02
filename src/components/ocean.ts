@@ -5,15 +5,19 @@ const SEGMENTS = 12;
 const SAND_MESH_Y = -0.9;
 const WATER_MESH_Y = 0.8;
 
-// Shared noise function (created once at module level so Sand and WaterVolume match)
-const noise2D = createNoise2D();
+// Simple seeded PRNG (mulberry32)
+function createSeededRandom(seed: number) {
+	return () => {
+		seed |= 0;
+		seed = (seed + 1831565813) | 0; // mulberry32 magic constant
+		let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+		t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+		return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+	};
+}
 
-function getSandHeight(x: number, z: number): number {
-	return (
-		SAND_MESH_Y +
-		noise2D(x * 0.3, z * 0.3) * 0.15 +
-		noise2D(x * 0.7, z * 0.7) * 0.05
-	);
+function createSeededNoise2D(seed: number) {
+	return createNoise2D(createSeededRandom(seed));
 }
 
 function getWaveHeight(x: number, z: number, time: number): number {
@@ -29,7 +33,6 @@ export const ocean = {
 	SEGMENTS,
 	SAND_MESH_Y,
 	WATER_MESH_Y,
-	noise2D,
-	getSandHeight,
+	createSeededNoise2D,
 	getWaveHeight,
 } as const;

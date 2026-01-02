@@ -1,12 +1,15 @@
-import oc from "open-color";
 import { useMemo } from "react";
 import * as THREE from "three";
+import { ocToHex, useDebugConfig } from "../debug/debugConfig";
 import { ocean } from "./ocean";
 
-const { SEGMENTS, SIZE, SAND_MESH_Y, noise2D } = ocean;
+const { SEGMENTS, SIZE, SAND_MESH_Y, createSeededNoise2D } = ocean;
 
 export function Sand() {
+	const { sand, world } = useDebugConfig();
+
 	const geometry = useMemo(() => {
+		const noise2D = createSeededNoise2D(world.seed);
 		const baseY = -0.5;
 
 		// Create height map
@@ -125,12 +128,12 @@ export function Sand() {
 		geo.computeVertexNormals();
 
 		return geo;
-	}, []);
+	}, [world.seed]);
 
 	return (
 		<mesh geometry={geometry} position={[0, SAND_MESH_Y, 0]}>
 			<meshStandardMaterial
-				color={oc.yellow[2]}
+				color={ocToHex(sand.color)}
 				roughness={1}
 				flatShading
 				side={THREE.DoubleSide}

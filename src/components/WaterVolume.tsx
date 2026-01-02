@@ -1,15 +1,29 @@
 import { useFrame } from "@react-three/fiber";
-import oc from "open-color";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
+import { ocToHex, useDebugConfig } from "../debug/debugConfig";
 import { ocean } from "./ocean";
 
-const { getSandHeight, getWaveHeight, SEGMENTS, SIZE, WATER_MESH_Y } = ocean;
+const {
+	createSeededNoise2D,
+	getWaveHeight,
+	SEGMENTS,
+	SIZE,
+	SAND_MESH_Y,
+	WATER_MESH_Y,
+} = ocean;
 
 export function WaterVolume() {
 	const meshRef = useRef<THREE.Mesh>(null);
+	const { water, world } = useDebugConfig();
 
 	const { geometry, topVertexIndices } = useMemo(() => {
+		const noise2D = createSeededNoise2D(world.seed);
+		const getSandHeight = (x: number, z: number) =>
+			SAND_MESH_Y +
+			noise2D(x * 0.3, z * 0.3) * 0.15 +
+			noise2D(x * 0.7, z * 0.7) * 0.05;
+
 		const geo = new THREE.BufferGeometry();
 		const vertices: number[] = [];
 		const indices: number[] = [];
@@ -59,7 +73,7 @@ export function WaterVolume() {
 		geo.computeVertexNormals();
 
 		return { geometry: geo, topVertexIndices: topIndices };
-	}, []);
+	}, [world.seed]);
 
 	useFrame(({ clock }) => {
 		if (!meshRef.current) return;
@@ -76,10 +90,12 @@ export function WaterVolume() {
 		meshRef.current.geometry.computeVertexNormals();
 	});
 
+	const colorHex = ocToHex(water.color);
+
 	return (
 		<mesh ref={meshRef} geometry={geometry}>
 			<meshStandardMaterial
-				color={oc.blue[7]}
+				color={colorHex}
 				transparent
 				opacity={0.6}
 				side={THREE.DoubleSide}

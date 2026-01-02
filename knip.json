@@ -1,5 +1,4 @@
 {
 	"$schema": "https://unpkg.com/knip@5/schema.json",
-	"ignoreBinaries": ["assist", "netlify-cli"],
-	"ignoreDependencies": ["open-color"]
+	"ignoreBinaries": ["assist", "netlify-cli"]
 }
